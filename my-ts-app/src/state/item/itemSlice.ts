@@ -1,7 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import data from '../../static/stackline_frontend_assessment_data_2021.json'
+import { RootState } from "../store";
 
-interface ItemState {
+export interface Item {
   id: string
   title: string
   image: string
@@ -13,7 +14,7 @@ interface ItemState {
   tags: string[]
   sales: Sale[]
 }
-interface Sale {
+export interface Sale {
     weekEnding: string
     retailSales: number
     wholesaleSales: number
@@ -27,32 +28,34 @@ interface Review {
     score: number
 }
 
-const initialState: ItemState | {} = {};
+interface ItemState {
+  entities: Item[]
+  loading: boolean
+}
+
+const initialState: ItemState = {
+  entities: [],
+  loading: false
+};
 
 const itemSlice = createSlice({
   name: "item",
   initialState,
   reducers: {
-    // increment: (state) => {
-    //   state.value += 1;
-    // },
-    // decrement: (state) => {
-    //   state.value -= 1;
-    // },
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   state.value += action.payload;
-    // },
-
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getItemAsync.pending, () => {
-        console.log("incrementAsync.pending");
+      .addCase(getItemAsync.pending, (state) => {
+        console.log("getItemAsync.pending");
+        state.loading = true;
       })
       .addCase(
         getItemAsync.fulfilled,
-        (state, action: PayloadAction<ItemState>) => {
-          state = action.payload;
+        (state, action: PayloadAction<Item[]>) => {
+          console.log('fulfilled',action.payload);
+          state.entities = action.payload;
+          state.loading = false;
+          console.log(state);
         }
       );
   },
@@ -61,11 +64,13 @@ const itemSlice = createSlice({
 export const getItemAsync = createAsyncThunk(
   "item/getItemAsync",
   async () => {
+    // simulate API call 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    return data[0];
+    return data;
   }
 );
 
+export const selectData = (state: RootState) => state.item;
 export const { } = itemSlice.actions;
 
 export default itemSlice.reducer;

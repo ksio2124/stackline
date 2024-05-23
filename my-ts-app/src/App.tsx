@@ -14,7 +14,7 @@ function App() {
 
         </div>
         <div className='grow flex flex-col'>
-          <div className='m-2 bg-white rounded-lg grow'></div>
+          <div className='m-2 bg-white rounded-lg grow min-h-60'></div>
           <div className='m-2 bg-white rounded-lg grow'>
             <SalesTable />
           </div>

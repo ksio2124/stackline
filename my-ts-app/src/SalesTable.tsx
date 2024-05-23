@@ -6,16 +6,11 @@ import {
   } from '@tanstack/react-table'
 import jsonData from './static/stackline_frontend_assessment_data_2021.json'
 import * as React from 'react'
+import {Item, Sale, getItemAsync} from './state/item/itemSlice'
+import {RootState, AppDispatch} from './state/store';
+import { useDispatch, useSelector } from 'react-redux';
 
-  type Item = {
-    weekEnding: string
-    retailSales: number
-    wholesaleSales: number
-    unitsSold: number
-    retailerMargin: number
-  }
-
-  const columnHelper = createColumnHelper<Item>()
+  const columnHelper = createColumnHelper<Sale>()
 
 const columns = [
   columnHelper.accessor('weekEnding', {
@@ -44,9 +39,12 @@ const columns = [
 ]
 
 function SalesTable() {
-    const salesData = jsonData[0].sales;
-    const [data, _setData] = React.useState(() => [...salesData])
-    const rerender = React.useReducer(() => ({}), {})[1]
+    const data = useSelector((state: RootState) => state.item.entities?.[0]?.sales ?? []);
+    const dispatch: AppDispatch = useDispatch();
+    
+    React.useEffect(() => {
+      dispatch(getItemAsync())
+    }, [])
   
     const table = useReactTable({
       data,
@@ -102,9 +100,6 @@ function SalesTable() {
           </tfoot>
         </table>
         <div className="h-4" />
-        <button onClick={() => rerender()} className="border p-2">
-          Rerender
-        </button>
       </div>
     )
 }
