@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/stackline/static/css/main.6b6ef142.css",
-    "main.js": "/stackline/static/js/main.e54e7b96.js",
+    "main.css": "/stackline/static/css/main.c3739fcd.css",
+    "main.js": "/stackline/static/js/main.a8bc5c0f.js",
     "static/js/453.a98d57f6.chunk.js": "/stackline/static/js/453.a98d57f6.chunk.js",
+    "static/media/stackline_logo.svg": "/stackline/static/media/stackline_logo.5935081bd899ecfe02395699e768f84e.svg",
     "index.html": "/stackline/index.html",
-    "main.6b6ef142.css.map": "/stackline/static/css/main.6b6ef142.css.map",
-    "main.e54e7b96.js.map": "/stackline/static/js/main.e54e7b96.js.map",
+    "main.c3739fcd.css.map": "/stackline/static/css/main.c3739fcd.css.map",
+    "main.a8bc5c0f.js.map": "/stackline/static/js/main.a8bc5c0f.js.map",
     "453.a98d57f6.chunk.js.map": "/stackline/static/js/453.a98d57f6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6b6ef142.css",
-    "static/js/main.e54e7b96.js"
+    "static/css/main.c3739fcd.css",
+    "static/js/main.a8bc5c0f.js"
   ]
 }
