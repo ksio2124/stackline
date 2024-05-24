@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import data from '../../static/stackline_frontend_assessment_data_2021.json';
+import data from '../../data/stackline_frontend_assessment_data_2021.json';
 import { RootState } from '../store';
 
 export interface Item {
