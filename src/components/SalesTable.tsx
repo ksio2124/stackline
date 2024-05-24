@@ -5,8 +5,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import * as React from 'react';
-import { Sale } from './state/item/itemSlice';
-import { RootState } from './state/store';
+import { Sale } from '../state/item/itemSlice';
+import { RootState } from '../state/store';
 import { useSelector } from 'react-redux';
 
 const columnHelper = createColumnHelper<Sale>();
@@ -14,26 +14,22 @@ const columnHelper = createColumnHelper<Sale>();
 const columns = [
   columnHelper.accessor('weekEnding', {
     cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    header: () => <span>Week Ending</span>,
   }),
   columnHelper.accessor((row) => row.retailSales, {
     id: 'retailSales',
     cell: (info) => <i>{info.getValue()}</i>,
     header: () => <span>Last Name</span>,
-    footer: (info) => info.column.id,
   }),
   columnHelper.accessor('wholesaleSales', {
-    header: () => 'wholesalesSales',
+    header: () => <span>Wholesales Sales</span>,
     cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
   }),
   columnHelper.accessor('unitsSold', {
-    header: () => <span>unitsSold</span>,
-    footer: (info) => info.column.id,
+    header: () => <span>Units Sold</span>,
   }),
   columnHelper.accessor('retailerMargin', {
-    header: 'retailerMargin',
-    footer: (info) => info.column.id,
+    header: () => <span>Retailer Margin</span>,
   }),
 ];
 
@@ -49,13 +45,13 @@ function SalesTable() {
   });
 
   return (
-    <div className="p-2">
-      <table>
+    <div>
+      <table className='w-full'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr key={headerGroup.id} className='border-b-2 border-black'>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} className='text-left'>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -68,8 +64,8 @@ function SalesTable() {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+          {table.getRowModel().rows.map((row, i) => (
+            <tr key={row.id} className={`border-b-2 border-gray-400 ${i % 2 === 0 ? 'border-dashed' : ''}`}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -78,24 +74,7 @@ function SalesTable() {
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext(),
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
       </table>
-      <div className="h-4" />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 {
   "name": "my-ts-app",
   "version": "0.1.0",
+  "homepage": "https://ksio2124.github.io/stackline/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
