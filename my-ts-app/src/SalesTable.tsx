@@ -40,11 +40,6 @@ const columns = [
 
 function SalesTable() {
     const data = useSelector((state: RootState) => state.item.entities?.[0]?.sales ?? []);
-    const dispatch: AppDispatch = useDispatch();
-    
-    React.useEffect(() => {
-      dispatch(getItemAsync())
-    }, [])
   
     const table = useReactTable({
       data,
